@@ -12,10 +12,17 @@ RUN apt-get update -qq && apt-get install -qqy \
     lxc \
     iptables \
     python-setuptools
-    
+
+# cwl-runner setup 
+# https://github.com/common-workflow-language/cwltool
 RUN pip install --upgrade pip && \
-	pip install cwlref-runner && \
-	pip install jupyter 
+	pip install cwlref-runner
+
+# pytoil engine recommended.
+
+# simple jupyter install
+# http://jupyter.org/install.html
+RUN	pip install jupyter 
 
 RUN mkdir -p /home/$NB_USER/
 
@@ -33,9 +40,10 @@ WORKDIR /home/$NB_USER/science-service
 #CMD FLASK_APP=flask/flask_web.py flask run --host=0.0.0.0
 #RUN echo 'gunicorn -w 9 -b 0.0.0.0:5002 "flask/flask_web:bootstrap_app()" --log-level debug --backlog 0 --timeout 120 --error-logfile error.log --log-file access.log' >> docker_entry.sh 
 
-RUN echo 'jupyter notebook' >> docker_entry.sh
+RUN echo 'jupyter notebook --allow-root' >> docker_entry.sh
 
-ENTRYPOINT bash #docker_entry.sh
+#ENTRYPOINT bash
+ENTRYPOINT bash docker_entry.sh
 
 #
 # docker build -t sci-serv docker/
