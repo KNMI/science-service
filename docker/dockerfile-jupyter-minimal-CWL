@@ -1,0 +1,6 @@
+FROM jupyter/minimal-notebook
+
+LABEL 	MAINTAINER=prov@knmi \
+		USER=mihajlov
+
+
