@@ -1,0 +1,38 @@
+FROM jupyter/datascience-notebook
+
+LABEL MAINTAINER=prov@knmi
+
+USER root
+
+RUN apt-get update -qq && apt-get install -qqy \
+	git \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    lxc \
+    iptables \
+    python-setuptools
+    
+
+# enable CWF    
+RUN pip install cwlref-runner
+
+USER $NB_USER
+
+RUN mkdir -p /home/$NB_USER/
+
+WORKDIR /home/$NB_USER/
+
+# CWF demo EPOS
+RUN mkdir -p /home/$NB_USER/epos-cwl-workflows/
+
+RUN git clone https://github.com/andrejsim/epos-cwl-workflows.git
+
+# CWF demo science-services
+RUN mkdir -p /home/$NB_USER/science-service/
+
+RUN git clone https://github.com/andrejsim/science-service.git
+
+USER root
+COPY run_workflow.sh /usr/local/bin/
+USER $NB_USER
