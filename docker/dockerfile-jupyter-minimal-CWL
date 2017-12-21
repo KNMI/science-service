@@ -29,5 +29,6 @@ RUN mkdir -p /home/$NB_USER/science-service/
 
 RUN git clone https://github.com/andrejsim/science-service.git
 
-
-
+USER root
+COPY run_workflow.sh /usr/local/bin/
+USER $NB_USER
