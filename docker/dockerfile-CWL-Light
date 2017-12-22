@@ -2,12 +2,10 @@ FROM ubuntu:14.04
 
 #commonworkflowlanguage/cwltool_module
 
+LABEL DEPRICATED=True
 LABEL MAINTAINER=prov@knmi
 
 ENV NB_USER=mihajlov 
-#\
-#	NB_UID=1000 \
-#	NB_GID=100
 
 # Let's start with some basic stuff.
 RUN apt-get update -qq && apt-get install -qqy \
