@@ -12,7 +12,8 @@ RUN apt-get update -qq && apt-get install -qqy \
     lxc \
     iptables \
     python-setuptools
-    
+
+RUN conda install xarray dask netCDF4 bottleneck    
 
 # enable CWF    
 RUN pip install cwlref-runner
@@ -32,6 +33,7 @@ RUN git clone https://github.com/andrejsim/epos-cwl-workflows.git
 RUN mkdir -p /home/$NB_USER/science-service/
 
 RUN git clone https://github.com/andrejsim/science-service.git
+
 
 USER root
 COPY run_workflow.sh /usr/local/bin/
