@@ -13,6 +13,8 @@ RUN apt-get update -qq && apt-get install -qqy \
     iptables \
     python-setuptools
 
+# xarray introduced for serialised netcdf interaction with pandas.
+# http://xarray.pydata.org/en/stable/io.html
 RUN conda install xarray dask netCDF4 bottleneck    
 
 # enable CWF    
@@ -34,7 +36,21 @@ RUN mkdir -p /home/$NB_USER/science-service/
 
 RUN git clone https://github.com/andrejsim/science-service.git
 
+# the data should be stored locally 
+# volume concept should be enabled per user...
+# VOLUME /home/$NB_USER/science-service/ 
 
+# WSGI dap server for open data ...
+# opendap access for data
+# http://pydap.readthedocs.io/en/latest/server.html#running-standalone
+
+# OGC Services
+# https://github.com/geopython
+
+
+
+
+### testing...
 USER root
 COPY run_workflow.sh /usr/local/bin/
 USER $NB_USER
