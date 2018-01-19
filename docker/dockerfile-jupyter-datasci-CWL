@@ -47,10 +47,27 @@ RUN git clone https://github.com/andrejsim/science-service.git
 # OGC Services
 # https://github.com/geopython
 
-
-
-
-### testing...
+# dispel4py with provenance
 USER root
+
+# dispel4py integration
+RUN apt-get update -qq && apt-get install -qqy \
+	wget \
+	curl \
+	python-dev \
+	python-pip \
+	python-setuptools \
+	git \
+	openmpi-bin \
+	openmpi-common \
+	libopenmpi-dev \
+	-y
+
+RUN pip install mpi4py
+
+# install dispel4py latest
+RUN pip install git+git://github.com/aspinuso/dispel4py.git@master
+
+
 COPY run_workflow.sh /usr/local/bin/
 USER $NB_USER
